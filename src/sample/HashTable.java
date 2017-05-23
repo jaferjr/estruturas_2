@@ -40,7 +40,8 @@ public class HashTable {
 		
 		List<Integer> whichList = theLists[myHash(x)];
 		if(!whichList.contains(x)){
-			whichList.add(x);			
+			whichList.add(x);
+
 			// to do inserir condição para rehash
 		}
 		
@@ -80,6 +81,10 @@ public class HashTable {
 		}
 		
 	}
+
+    public int getSize() {
+        return theLists.length;
+    }
 	
 
 }

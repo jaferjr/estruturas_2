@@ -21,7 +21,7 @@
                   <TextField fx:id="txtElemento" promptText="insira o elemento" />
                   <ComboBox fx:id="cmbEstruturas" onAction="#escolherEstruturaCombo" />
                   <Button fx:id="btnInserir" mnemonicParsing="false" onAction="#inserirButtonClicked" text="Inserir" />
-                  <Button layoutX="181.0" layoutY="10.0" mnemonicParsing="false" text="Buscar" />
+                  <Button layoutX="181.0" layoutY="10.0" mnemonicParsing="false" onAction="#buscar" text="Buscar" />
                   <Button layoutX="243.0" layoutY="10.0" mnemonicParsing="false" text="Remover" />
                </children>
                <VBox.margin>

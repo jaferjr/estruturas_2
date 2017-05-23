@@ -9,6 +9,9 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -40,13 +43,17 @@ public class Controller implements Initializable{
     private HashTable hashTable;
 
 
-
-
+    boolean changeButton = true;
+    private Group group;
+    private int size;//tamanho da hash
+    private TextFlow [] textFlow;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
         itens = FXCollections.observableArrayList("OpenHash","ClosedHash","Hash Meio-Aberta");
         cmbEstruturas.setItems(itens);
+
+        scroll.setContent(group);
 
 
 
@@ -59,7 +66,7 @@ public class Controller implements Initializable{
         String valor= cmbEstruturas.getValue();
         if(valor == "OpenHash"){
             btnInserir.setText("Tamanho");
-            txtElemento.setPromptText("insira o tamanho");
+            txtElemento.setPromptText("insira o changeButton");
 
         }
     }
@@ -67,26 +74,40 @@ public class Controller implements Initializable{
     @FXML
     private void inserirButtonClicked(){
 
-        int size = Integer.parseInt(txtElemento.getText());
-        hashTable= new HashTable(size);
-        labelStatus.setText("testando...");
+        if (changeButton){
 
-        btnInserir.setText("Inserir");
-        desenhaHash(size);
+            size = Integer.parseInt(txtElemento.getText());
+            hashTable= new HashTable(size);
 
-        int elemento = Integer.parseInt(txtElemento.getText());
+            btnInserir.setText("Inserir");
+            desenhaHash(size);
+            changeButton = false;
+        }else {
 
-        hashTable.insert(elemento);
-//        Label lElemento = new Label(Integer.toString(elemento));
-//        lElemento.setLayoutX();
+            labelStatus.setText("testando...");
+            int elemento =  Integer.parseInt(txtElemento.getText());
+            hashTable.insert(elemento);
+            TextFlow label = this.textFlow[elemento%hashTable.getSize()];
+            Text text = new Text("->");
+            text.setStyle("-fx-font-size: 20px");
+            Text element = new Text(elemento+"");
+            element.setStyle("-fx-font-size: 20px");
+            label.getChildren().addAll(text, element);
+        }
+        scroll.setContent(group);
 
 
     }
 
     private void desenhaHash(int size) {
-        Group g  = new Group();
+        group = new Group();
+        textFlow = new TextFlow[size];
         for(int i = 0 ; i<size;i++){
             Label l = new Label();
+            textFlow[i] = new TextFlow();
+            textFlow[i].setLayoutX(85);
+            textFlow[i].setId(i+"");
+            textFlow[i].setLayoutY((i+1.25)*50);
             l.setText(Integer.toString(i));
             l.setLayoutX(10);
             l.setLayoutY((i+1.25)*50);
@@ -97,8 +118,48 @@ public class Controller implements Initializable{
             r.setHeight(50);
             r.setFill(Color.TRANSPARENT);
             r.setStroke(Color.BLUE);
-            g.getChildren().addAll(r,l);
+            group.getChildren().addAll(r,l, textFlow[i]);
         }
-        scroll.setContent(g);
+
     }
+
+    private void desenhaInsercao(int x, int y, int valor){
+        Label l = new Label();
+        l.setLayoutX(x);
+        l.setLayoutY(y);
+        l.setFont(Font.font("Cambria", 32));
+        l.setText("->"+Integer.toString(valor));
+        group.getChildren().add(l);
+    }
+    @FXML
+    public void buscar() {
+        String elemento = txtElemento.getText();
+        int listIndex = Integer.parseInt(elemento)%hashTable.getSize();
+        TextFlow tf = textFlow[listIndex];
+        for (int i = 1; i < tf.getChildren().size(); i+=2) {
+            Text text = (Text) tf.getChildren().get(i);
+            if(text.getText().equals(elemento)) {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        text.setFill(Color.RED);
+                        try{
+                            Thread.sleep(5000);
+                        }catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        text.setFill(Color.BLACK);
+
+                    }
+                }).start();
+            }
+        }
+    }
+    private void remocao(){
+
+
+
+
+    }
+
 }
