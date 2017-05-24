@@ -77,60 +77,54 @@ public class Controller implements Initializable{
         if (changeButton){
 
             size = Integer.parseInt(txtElemento.getText());
-            hashTable= new HashTable(size);
 
             btnInserir.setText("Inserir");
-            desenhaHash(size);
+            hashTable= new HashTable(size, group);
+
             changeButton = false;
         }else {
 
             labelStatus.setText("testando...");
             int elemento =  Integer.parseInt(txtElemento.getText());
             hashTable.insert(elemento);
-            TextFlow label = this.textFlow[elemento%hashTable.getSize()];
-            Text text = new Text("->");
-            text.setStyle("-fx-font-size: 20px");
-            Text element = new Text(elemento+"");
-            element.setStyle("-fx-font-size: 20px");
-            label.getChildren().addAll(text, element);
+//            TextFlow label = this.textFlow[elemento%hashTable.getSize()];
+//            Text text = new Text("->");
+//            text.setStyle("-fx-font-size: 20px");
+//            Text element = new Text(elemento+"");
+//            element.setStyle("-fx-font-size: 20px");
+//            label.getChildren().addAll(text, element);
+
         }
         scroll.setContent(group);
 
 
     }
 
-    private void desenhaHash(int size) {
-        group = new Group();
-        textFlow = new TextFlow[size];
-        for(int i = 0 ; i<size;i++){
-            Label l = new Label();
-            textFlow[i] = new TextFlow();
-            textFlow[i].setLayoutX(85);
-            textFlow[i].setId(i+"");
-            textFlow[i].setLayoutY((i+1.25)*50);
-            l.setText(Integer.toString(i));
-            l.setLayoutX(10);
-            l.setLayoutY((i+1.25)*50);
-            Rectangle r = new Rectangle();
-            r.setLayoutX(30);
-            r.setLayoutY((i+1)*50);
-            r.setWidth(50);
-            r.setHeight(50);
-            r.setFill(Color.TRANSPARENT);
-            r.setStroke(Color.BLUE);
-            group.getChildren().addAll(r,l, textFlow[i]);
-        }
+//    private void desenhaHash(int size) {
+//        group = new Group();
+//        textFlow = new TextFlow[size];
+//        for(int i = 0 ; i<size;i++){
+//            Label l = new Label();
+//            textFlow[i] = new TextFlow();
+//            textFlow[i].setLayoutX(85);
+//            textFlow[i].setId(i+"");
+//            textFlow[i].setLayoutY((i+1.25)*50);
+//            l.setText(Integer.toString(i));
+//            l.setLayoutX(10);
+//            l.setLayoutY((i+1.25)*50);
+//            Rectangle r = new Rectangle();
+//            r.setLayoutX(30);
+//            r.setLayoutY((i+1)*50);
+//            r.setWidth(50);
+//            r.setHeight(50);
+//            r.setFill(Color.TRANSPARENT);
+//            r.setStroke(Color.BLUE);
+//            group.getChildren().addAll(r,l, textFlow[i]);
+//        }
+//
+//    }
 
-    }
 
-    private void desenhaInsercao(int x, int y, int valor){
-        Label l = new Label();
-        l.setLayoutX(x);
-        l.setLayoutY(y);
-        l.setFont(Font.font("Cambria", 32));
-        l.setText("->"+Integer.toString(valor));
-        group.getChildren().add(l);
-    }
     @FXML
     public void buscar() {
         String elemento = txtElemento.getText();
@@ -156,7 +150,7 @@ public class Controller implements Initializable{
         }
     }
     private void remocao(){
-
+        String elemento = txtElemento.getText();
 
 
 
