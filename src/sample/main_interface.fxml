@@ -5,24 +5,26 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.TreeView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <top>
       <VBox BorderPane.alignment="CENTER">
          <children>
             <HBox spacing="10.0">
                <children>
-                  <TextField fx:id="txtElemento" promptText="insira o elemento" />
-                  <ComboBox fx:id="cmbEstruturas" onAction="#escolherEstruturaCombo" />
+                  <ComboBox fx:id="cmbEstruturas" onAction="#escolherEstruturaCombo" prefHeight="26.0" prefWidth="159.0" />
+                  <TextField fx:id="txtElemento" prefHeight="26.0" prefWidth="89.0" promptText="insira o elemento" />
                   <Button fx:id="btnInserir" mnemonicParsing="false" onAction="#inserirButtonClicked" text="Inserir" />
                   <Button layoutX="181.0" layoutY="10.0" mnemonicParsing="false" onAction="#buscar" text="Buscar" />
-                  <Button layoutX="243.0" layoutY="10.0" mnemonicParsing="false" text="Remover" />
+                  <Button layoutX="243.0" layoutY="10.0" mnemonicParsing="false" onAction="#remocao" text="Remover" />
+                  <!--<Button fx:id="btnTamanho" mnemonicParsing="false" onAction="#acaoTamanhoHash" text="Tamanho " textAlignment="CENTER" />-->
                </children>
                <VBox.margin>
                   <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
@@ -31,9 +33,6 @@
          </children>
       </VBox>
    </top>
-   <left>
-      <TreeView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
-   </left>
    <center>
       <ScrollPane fx:id="scroll" BorderPane.alignment="CENTER">
         <content>
@@ -51,4 +50,16 @@
          </padding>
       </HBox>
    </bottom>
+   <left>
+      <VBox prefHeight="338.0" prefWidth="114.0" BorderPane.alignment="CENTER">
+         <children>
+            <Region prefHeight="34.0" prefWidth="114.0" />
+            <Label text="Fator de Carga:" textAlignment="CENTER" wrapText="true" />
+            <Label fx:id="lblCarga" text="" />
+            <Separator prefHeight="21.0" prefWidth="100.0" />
+            <Label layoutX="10.0" layoutY="10.0" text="Fator de Balanceamento:" textAlignment="CENTER" wrapText="true" />
+            <Label fx:id="lblBalanceamento" layoutX="10.0" layoutY="26.0" text="" />
+         </children>
+      </VBox>
+   </left>
 </BorderPane>
